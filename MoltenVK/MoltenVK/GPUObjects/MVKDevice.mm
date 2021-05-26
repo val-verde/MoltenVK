@@ -3042,8 +3042,7 @@ uint32_t MVKPhysicalDevice::getHighestGPUCapability() {
 // static const char* mvkRevString = "fc0750d67cfe825b887dd2cf25a42e9d9a013eb2";
 uint32_t MVKPhysicalDevice::getMoltenVKGitRevision() {
 
-#include "mvkGitRevDerived.h"
-
+	static const char* mvkRevString = MVK_GIT_REV;
 	static const string revStr(mvkRevString, 0, 8);		// We just need the first 8 chars
 	static const string lut("0123456789ABCDEF");
 
