@@ -110,7 +110,11 @@ bool mvk::compile(const string& mslSourceCode,
 	}
 
 	@autoreleasepool {
+	#if TARGET_OS_IOS || TARGET_OS_TV
+		NSArray* mtlDevs = @[[MTLCreateSystemDefaultDevice() autorelease]];
+	#else
 		NSArray* mtlDevs = [MTLCopyAllDevices() autorelease];
+	#endif
 		if (mtlDevs.count == 0) {
 			errMsg = "Could not retrieve MTLDevice to compile shader.";
 			return false;
