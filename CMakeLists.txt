@@ -23,7 +23,7 @@ set(CMAKE_OBJCXX_FLAGS "${CMAKE_OBJCXX_FLAGS} ${DISABLED_WARNINGS}")
 
 find_package(Threads REQUIRED)
 find_package(glslang REQUIRED)
-find_package(SPIRV-Tools REQUIRED)
+find_package(SPIRV-Tools-opt REQUIRED)
 find_package(VulkanHeaders REQUIRED)
 find_library(SPIRV_CROSS_CORE_LIBRARY spirv-cross-core REQUIRED)
 find_library(SPIRV_CROSS_GLSL_LIBRARY spirv-cross-glsl REQUIRED)
@@ -32,7 +32,6 @@ find_library(SPIRV_CROSS_MSL_LIBRARY spirv-cross-msl REQUIRED)
 find_library(SPIRV_CROSS_REFLECT_LIBRARY spirv-cross-reflect REQUIRED)
 find_library(SPIRV_CROSS_CPP_LIBRARY spirv-cross-cpp REQUIRED)
 find_library(SPIRV_CROSS_C_LIBRARY spirv-cross-c REQUIRED)
-find_library(SPIRV_TOOLS_OPT_LIBRARY SPIRV-Tools-opt REQUIRED)
 find_library(CoreGraphics_LIBRARY CoreGraphics REQUIRED)
 find_library(Foundation_LIBRARY Foundation REQUIRED)
 find_library(IOSurface_LIBRARY IOSurface REQUIRED)
@@ -97,22 +96,11 @@ target_compile_definitions(
     PRIVATE MVK_GIT_REV="${MoltenVK_VERSION}"
 )
 
-get_filename_component(
-    SPIRV_TOOLS_OPT_LIBRARY_DIR
-    ${SPIRV_TOOLS_OPT_LIBRARY}
-    DIRECTORY
-)
-
-target_link_directories(
-    MoltenVK PUBLIC
-    ${SPIRV_TOOLS_OPT_LIBRARY_DIR}
-)
-
 target_link_libraries(
     MoltenVK PUBLIC
-    SPIRV-Tools
     glslang::glslang
     glslang::SPIRV
+    SPIRV-Tools-opt
     ${AppKit_OR_UIKit_LIBRARY}
     ${CoreGraphics_LIBRARY}
     ${Foundation_LIBRARY}
