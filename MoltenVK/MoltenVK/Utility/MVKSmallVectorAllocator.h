@@ -20,6 +20,7 @@
 
 #include <new>
 #include <type_traits>
+#include <utility>
 
 
 namespace mvk_smallvector_memory_allocator
